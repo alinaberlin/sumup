@@ -21,8 +21,7 @@ const statuses = ["success", "fail", "inProgress"];
 const methods = ["card", "SEPA", "payPal"];
 
 let generateTransactions = function(nr) {
-  let transactions = [];
-  let innerHtml = "";
+  let transactions = []; 
   for (let i= 0; i < nr; i++) {
     let type = types[Math.floor((Math.random() * 3))];
     let status = statuses[Math.floor((Math.random() * 3))];
@@ -33,11 +32,10 @@ let generateTransactions = function(nr) {
     transactionDate.setDate(transactionDate.getDate() - daysInThePast);
     let transaction = new Transaction(transactionDate, type, status, amount, paymentMethod);
     transaction.logTransaction();
-    innerHtml += "<p>" + transaction.toString() + "</p>"; 
+    
     transactions.push(transaction);
   }
-  let el =  document.getElementById("main");
-  el.innerHTML = innerHtml;
+
   return transactions;
 }
 
