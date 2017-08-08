@@ -10,6 +10,7 @@
   logTransaction() {
     console.log(this.toString());
   }
+  
 
   toString() {
     return "Date: " + this.date + " Type: " + this.type + " Status: " + this.status + 
@@ -19,10 +20,8 @@
 const types = ["payment", "refund", "sale"];
 const statuses = ["success", "fail", "inProgress"];
 const methods = ["card", "SEPA", "payPal"];
-
-let generateTransactions = function(nr) {
-  let transactions = []; 
-  for (let i= 0; i < nr; i++) {
+ 
+ let generateTransaction = function() {
     let type = types[Math.floor((Math.random() * 3))];
     let status = statuses[Math.floor((Math.random() * 3))];
     let paymentMethod = methods[Math.floor((Math.random() * 3))];
@@ -32,11 +31,11 @@ let generateTransactions = function(nr) {
     transactionDate.setDate(transactionDate.getDate() - daysInThePast);
     let transaction = new Transaction(transactionDate, type, status, amount, paymentMethod);
     transaction.logTransaction();
-    
-    transactions.push(transaction);
-  }
+    return transaction;
+ }
 
-  return transactions;
+let generateTransactions = function(nr) {
+  return Array.from({length: nr}, () => generateTransaction());
 }
 
 generateTransactions(100);
